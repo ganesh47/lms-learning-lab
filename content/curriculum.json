@@ -259,9 +259,9 @@
       ],
       "lesson": [
         "Rule checked: 4 October 2026. The 28 November 2025 RBI consolidation withdrew listed earlier instruments while preserving prior actions and consolidating obligations. Current study therefore uses entity-specific successor directions. The supplied June 2026 handbook remains an educational source, with dated citations and corrected examples.",
-        "For an in-scope CLA governed by current commercial-bank Part B, each lender retains at least 10% of an individual loan; shares are booked without avoidable delay and no later than fifteen calendar days after disbursement. If the deadline is missed the loan stays with the originator and a later transfer follows Part A. Scope and transition rules must be checked before applying these lessons to an actual entity.",
+        "For an in-scope CLA governed by current commercial-bank Part B, each participating commercial bank retains at least 10% of an individual loan; shares are booked without avoidable delay and no later than fifteen calendar days after disbursement. If the originating bank cannot transfer the partner exposure share within the deadline, the loan stays with the originating bank and a later transfer follows Part A. Scope and transition rules must be checked before applying these lessons to an actual entity.",
         "Current bank CLA rules require bank-held escrow, share reporting to CIC, and coordinated SMA/NPA classification for default in the CLA exposure. Classification information is exchanged near-real-time, no later than end of next working day. NBFC CLA successors also require separate borrower share accounts and a funding-share-weighted borrower rate.",
-        "For an in-scope NBFC digital loan under current Credit Facilities Directions, outsourcing leaves regulatory responsibility with the NBFC. LSP independent control over loan cash flows is prohibited. Routing has specified exceptions, including inter-lender co-lending and other enumerated cases; avoid absolute no-exception slogans.",
+        "For an in-scope NBFC digital loan under current Credit Facilities Directions, outsourcing leaves regulatory responsibility with the NBFC. LSP control over loan fund flows, directly or indirectly, is prohibited. Routing exceptions do not permit LSP control. Routing has specified exceptions, including inter-lender co-lending and other enumerated cases; avoid absolute no-exception slogans.",
         "Current prepayment, KFS and penal-charge successor details are held out of current-law scoring because their full texts were not accessible to the independent reviewer. General fee eligibility, disclosure versioning and no-double-counting lessons here are design principles, not certification of a live legal matrix. Sources lists the held texts and historical lineage."
       ]
     }
@@ -2685,7 +2685,7 @@
       "id": "controls-02",
       "module": "controls",
       "front": "What minimum individual-loan retention applies in current in-scope bank Part B CLA?",
-      "back": "Each participating lender retains at least 10% of each individual loan; do not retroactively apply this to legacy arrangements.",
+      "back": "Each participating commercial bank retains at least 10% of each individual loan; do not retroactively apply this to legacy arrangements.",
       "difficulty": "Foundation",
       "sources": [
         {
@@ -2722,8 +2722,8 @@
     {
       "id": "controls-04",
       "module": "controls",
-      "front": "What happens after a missed current bank CLA booking deadline?",
-      "back": "The loan stays on originator books; later transfer follows Part A.",
+      "front": "What happens if current bank CLA partner-share transfer fails within the deadline?",
+      "back": "If the originating bank cannot transfer the partner exposure share within fifteen calendar days from disbursement, the loan remains with that bank; a subsequent eligible transfer follows Part A.",
       "difficulty": "Applied",
       "sources": [
         {
@@ -2817,8 +2817,8 @@
     {
       "id": "controls-09",
       "module": "controls",
-      "front": "Can an LSP independently control digital-loan cash flows?",
-      "back": "For an in-scope NBFC digital loan, no; specified payment-routing exceptions still need their own controls.",
+      "front": "Can an LSP control digital-loan fund flows directly or indirectly?",
+      "back": "For an in-scope NBFC digital loan, no direct or indirect LSP control over fund flows; specified routing exceptions do not permit such control.",
       "difficulty": "Advanced",
       "sources": [
         {
@@ -2844,6 +2844,11 @@
           "id": "nbfc-digital",
           "section": "25(4)",
           "claim": "D8"
+        },
+        {
+          "id": "nbfc-digital",
+          "section": "25(2)",
+          "claim": "D7"
         }
       ],
       "prerequisites": [
@@ -6825,7 +6830,7 @@
     {
       "id": "q-controls-02",
       "module": "controls",
-      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, lender A proposes 95% and lender B 5%. What is the retention issue?",
+      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, both lenders are commercial banks; bank A proposes 95% and bank B 5%. What is the retention issue?",
       "options": [
         {
           "text": "No issue because the shares sum to 100%",
@@ -6837,7 +6842,7 @@
         },
         {
           "text": "B is below the 10% individual-loan minimum",
-          "explanation": "Section 101 requires at least 10% for each lender in this scoped scenario."
+          "explanation": "Section 101 requires at least 10% for each participating bank in this scoped scenario."
         }
       ],
       "answer": 2,
@@ -6858,15 +6863,15 @@
     {
       "id": "q-controls-03",
       "module": "controls",
-      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, latest booking deadline is what?",
+      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, latest booking deadline after the originating RE disburses to the borrower is what?",
       "options": [
         {
           "text": "Any time before annual audit",
           "explanation": "That ignores the specified deadline."
         },
         {
-          "text": "15 calendar days, without avoidable delay",
-          "explanation": "Section 112 specifies the outer limit and timely booking."
+          "text": "Without delay and no later than 15 calendar days from disbursement",
+          "explanation": "Section 112 ties timely booking and the outer calendar-day limit to disbursement."
         },
         {
           "text": "15 working days",
@@ -6891,11 +6896,11 @@
     {
       "id": "q-controls-04",
       "module": "controls",
-      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, shares were not booked by the deadline. Required treatment?",
+      "prompt": "For an in-scope CLA governed by current commercial-bank Part B, the originating bank cannot transfer the partner exposure share within 15 calendar days from disbursement. What happens?",
       "options": [
         {
-          "text": "Remain on originator books; later transfer follows Part A",
-          "explanation": "Section 114 governs the failed CLA transfer timeline."
+          "text": "Loan remains with the originating bank; subsequent eligible transfer follows Part A",
+          "explanation": "Section 114 applies when the partner exposure share cannot be transferred within fifteen calendar days from disbursement."
         },
         {
           "text": "Backdate a fictitious partner booking",
@@ -7056,15 +7061,15 @@
     {
       "id": "q-controls-09",
       "module": "controls",
-      "prompt": "In an in-scope NBFC digital loan, an LSP wants independent control of collection cash. Correct answer under current section 10(3)?",
+      "prompt": "In an in-scope NBFC digital loan, an LSP wants direct or indirect control of loan fund flows. Correct answer under current section 10(3)?",
       "options": [
         {
           "text": "All payment-routing exceptions are abolished",
           "explanation": "That overstates the rule and ignores enumerated exceptions."
         },
         {
-          "text": "Not permitted; preserve specified routing exceptions separately",
-          "explanation": "The prohibition on independent LSP control is scoped; section 10 also has exceptions."
+          "text": "Not permitted directly or indirectly; routing exceptions do not permit LSP control",
+          "explanation": "Section 10(3) prohibits direct or indirect LSP control; payment-routing exceptions do not relax this prohibition."
         },
         {
           "text": "Always permitted if a mobile app is used",
