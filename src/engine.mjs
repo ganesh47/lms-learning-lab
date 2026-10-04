@@ -17,7 +17,7 @@ export function split(principal,interest,totalPOS,share,rateA,rateB){
 }
 export function clockRemaining(session,now=Date.now()){
  if(session.mode==='untimed')return null;
- return Math.max(0,session.paused?session.remaining:session.deadline-now);
+ return Math.max(0,session.paused?session.remaining:Math.min(session.remaining,session.deadline-now));
 }
 export function pauseClock(session,now=Date.now()){
  if(session.mode==='untimed'||session.paused||session.status!=='active')return session;
@@ -34,3 +34,12 @@ export function classifyAttempt(history,qid,{helped=false,exposed=false,correct=
 // Conventional cashflows only: one initial outflow followed by nonnegative receipts.
 export function periodicIRR(initial,receipts){if(initial<=0||!receipts.length||receipts.some(c=>c<0)||receipts.every(c=>c===0))throw Error('Use conventional cashflows');let lo=-0.9999,hi=1;const npv=r=>-initial+receipts.reduce((n,c,i)=>n+c/Math.pow(1+r,i+1),0);while(npv(hi)>0&&hi<1e6)hi*=2;if(npv(lo)<0||npv(hi)>0)throw Error('Yield is not bracketed');for(let i=0;i<150;i++){const mid=(lo+hi)/2;if(npv(mid)>0)lo=mid;else hi=mid;}return (lo+hi)/2;}
 export function eirSchedule(p,annual,n,fee){const gross=schedule(p,annual,n);if(fee<0||fee>=p)throw Error('Fee must be lower than principal');const yieldRate=periodicIRR(p-fee,gross.map(r=>r.payment));let carrying=round(p-fee),deferred=fee;const rows=gross.map((r,i)=>{const opening=carrying;const income=i===n-1?round(r.payment-opening):round(opening*yieldRate);carrying=round(opening+income-r.payment);const feeAccretion=round(income-r.interest);deferred=round(deferred-feeAccretion);return {...r,carryingOpen:opening,income,carryingClose:carrying,feeAccretion,deferred};});return {yieldRate,effectiveAnnual:Math.pow(1+yieldRate,12)-1,rows};}
+
+export function observeClock(session,tracker,wallNow,monoNow){
+ if(session.mode==='untimed'||session.paused||session.status!=='active')return {tracker:null,remaining:clockRemaining(session,wallNow),rollback:false};
+ const key=`${session.startedAt}:${session.index}:${session.deadline}`;
+ if(!tracker||tracker.key!==key)tracker={key,wallHigh:session.lastObserved,monoBase:monoNow,remainingBase:clockRemaining(session,wallNow),remaining:clockRemaining(session,wallNow)};
+ const rollback=wallNow+1000<tracker.wallHigh;
+ const remaining=Math.max(0,Math.min(tracker.remaining,tracker.remainingBase-(monoNow-tracker.monoBase),session.deadline-wallNow));
+ return {remaining,rollback,tracker:{...tracker,remaining,wallHigh:Math.max(tracker.wallHigh,wallNow)}};
+}
