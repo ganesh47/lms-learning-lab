@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'./tests/browser',fullyParallel:false,workers:1,retries:0,timeout:30000,reporter:[['list'],['html',{open:'never'}]],use:{baseURL:process.env.APP_URL||'http://127.0.0.1:4178/lms-learning-lab/',viewport:{width:1280,height:900},trace:'retain-on-failure'},webServer:process.env.APP_URL?undefined:{command:'node scripts/serve.mjs',port:4178,reuseExistingServer:false},projects:[{name:'chromium',use:{browserName:'chromium'}}]});
