@@ -8546,7 +8546,7 @@
           "explanation": "Opening ₹1,10,538.15, interest ₹1,105.38, paid principal ₹9,556.47; closing ₹1,00,981.68."
         },
         {
-          "text": "₹1,00,876.30",
+          "text": "₹1,01,076.30",
           "explanation": "This wrongly repeats month 1 interest/principal mix."
         }
       ],
@@ -8699,18 +8699,18 @@
       "id": "q-case-14-3",
       "module": "math",
       "case": "case-14",
-      "prompt": "In case 14's separate monthly 1% example, effective annual yield is what, rounded to 2 decimals?",
+      "prompt": "In case 14's separate monthly 1.2% example, effective annual yield is what, rounded to 2 decimals?",
       "options": [
         {
           "text": "12.68%",
-          "explanation": "(1.01)^12 − 1 = 12.6825%."
+          "explanation": "(1.012)^12 − 1 = 15.3895%."
         },
         {
           "text": "12.00%",
           "explanation": "This is nominal annualization, not effective compounded yield."
         },
         {
-          "text": "1.00%",
+          "text": "1.20%",
           "explanation": "This is monthly yield before annualization."
         }
       ],
@@ -8737,15 +8737,55 @@
       ]
     },
     {
+      "id": "q-case-14-4",
+      "module": "math",
+      "case": "case-14",
+      "prompt": "In case 14 actual-date transfer cashflows (₹1,00,000 out on 1 Jan 2026; ₹40,000 in on 1 Apr, 1 Nov and 1 Mar 2027), annual 365-day dated yield is what rounded to 2 decimals?",
+      "options": [
+        {
+          "text": "20.00%",
+          "explanation": "This is total cash surplus divided by initial cash and ignores the payment dates."
+        },
+        {
+          "text": "10.00%",
+          "explanation": "That is the separate three-year periodic example, with different cashflows and timing."
+        },
+        {
+          "text": "28.42%",
+          "explanation": "Discount receipts with exponents 90/365, 304/365 and 424/365; solved y is 28.4172%."
+        }
+      ],
+      "answer": 2,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        },
+        {
+          "id": "xirr"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
       "id": "q-case-15-1",
       "module": "math",
       "case": "case-15",
       "prompt": "In case 15 under the explicit qualifying-fee policy, initial carrying amount is what?",
       "options": [
-        {
-          "text": "₹1,20,000",
-          "explanation": "That is gross contractual principal before the contra-asset fee adjustment."
-        },
         {
           "text": "₹1,22,400",
           "explanation": "That adds rather than deducts the deferred fee."
@@ -8753,9 +8793,13 @@
         {
           "text": "₹1,17,600",
           "explanation": "Gross ₹1,20,000 less deferred qualifying fee ₹2,400 equals net carrying ₹1,17,600."
+        },
+        {
+          "text": "₹1,20,000",
+          "explanation": "That is gross contractual principal before the contra-asset fee adjustment."
         }
       ],
-      "answer": 2,
+      "answer": 1,
       "difficulty": "Advanced",
       "sources": [
         {
@@ -8784,19 +8828,19 @@
       "prompt": "In case 15, month 1 EIR income and fee accretion are what?",
       "options": [
         {
-          "text": "₹10,661.85 income",
-          "explanation": "The installment includes principal repayment, so it is not all income."
-        },
-        {
           "text": "₹1,553.74 income, including ₹353.74 fee accretion",
           "explanation": "Solved EIR income ₹1,553.74 less nominal ₹1,200 = ₹353.74 qualifying fee accretion."
         },
         {
           "text": "₹1,200 income and all ₹2,400 fee recognized immediately",
           "explanation": "That contradicts the expressly stated deferred EIR policy."
+        },
+        {
+          "text": "₹10,661.85 income",
+          "explanation": "The installment includes principal repayment, so it is not all income."
         }
       ],
-      "answer": 1,
+      "answer": 0,
       "difficulty": "Advanced",
       "sources": [
         {
@@ -8825,19 +8869,19 @@
       "prompt": "In case 15, gross principal close ₹1,10,538.15 less deferred fee ₹2,046.26 equals what?",
       "options": [
         {
-          "text": "₹1,08,491.89 net carrying amount",
-          "explanation": "110,538.15 − 2,046.26 = 108,491.89, matching EIR carrying schedule."
-        },
-        {
           "text": "₹1,12,584.41",
           "explanation": "That adds the contra-asset instead of deducting it."
         },
         {
           "text": "₹9,461.85",
           "explanation": "That is principal repaid, not the remaining carrying amount."
+        },
+        {
+          "text": "₹1,08,491.89 net carrying amount",
+          "explanation": "110,538.15 − 2,046.26 = 108,491.89, matching EIR carrying schedule."
         }
       ],
-      "answer": 0,
+      "answer": 2,
       "difficulty": "Advanced",
       "sources": [
         {
@@ -9533,19 +9577,32 @@
       "id": "case-14",
       "title": "Multi-period PV, periodic IRR and dates",
       "module": "math",
-      "scenario": "Illustrative annual cashflows: lender pays ₹99,474.08 at year 0 and receives ₹40,000 at each year-end 1, 2 and 3; no other flows. PV discount is 10% annually. Separately consider the same amounts arriving on irregular actual dates; a dated yield must state its day-count convention. A monthly IRR of 1% in a separate example annualizes effectively with twelve compounding periods.",
+      "scenario": "Illustrative annual cashflows: lender pays ₹99,474.08 at year 0 and receives ₹40,000 at each year-end 1, 2 and 3; no other flows. PV discount is 10% annually. Separately consider the same amounts arriving on irregular actual dates; a dated yield must state its day-count convention. A monthly IRR of 1.2% in a separate example annualizes effectively with twelve compounding periods.",
       "steps": [
         "PV = 40000/1.1 + 40000/1.1² + 40000/1.1³ = ₹99,474.079639, rounded ₹99,474.08. Each payment is discounted for its own horizon.",
         "NPV at 10% = −99,474.08 + 99,474.079639 ≈ −₹0.000361. With paise initial cash, solved periodic annual IRR rounds to 10.00%. The small residual is stated rounding, not a fee.",
         "Periodic IRR assumes equal periods. XIRR-style dated yield uses actual date intervals and an explicit year basis, e.g. exponents days/365. An earlier receipt generally raises lender yield holding other cashflows fixed; an undated periodic IRR ignores that timing change.",
-        "A monthly 1% IRR gives nominal annualization 12%, but effective annual yield (1.01)^12 − 1 = 12.6825%, displayed 12.68%. Do not call a periodic monthly root an annual rate without conversion."
+        "Actual-date transfer example: lender pays ₹1,00,000 on 1 Jan 2026; receives ₹40,000 each on 1 Apr 2026, 1 Nov 2026 and 1 Mar 2027. Actual days from origin are 90, 304 and 424. Solve 0 = −100000 + 40000/(1+y)^(90/365) + 40000/(1+y)^(304/365) + 40000/(1+y)^(424/365). Annual dated yield y = 28.41720162%, rounded 28.42%; NPV at this root is approximately zero. This is a 365-day XIRR-style convention, not a regulatory APR certificate.",
+        "A monthly 1.2% IRR gives nominal annualization 14.4%, but effective annual yield (1.012)^12 − 1 = 15.3895%, displayed 15.39%. Do not call a periodic monthly root an annual rate without conversion."
       ],
       "questions": [
         "q-case-14-1",
         "q-case-14-2",
-        "q-case-14-3"
+        "q-case-14-3",
+        "q-case-14-4"
       ],
       "checks": [
+        {
+          "op": "xirr",
+          "args": [
+            100000,
+            40000,
+            90,
+            304,
+            424
+          ],
+          "expected": 0.2841720162137372
+        },
         {
           "op": "pv",
           "args": [
@@ -9558,10 +9615,10 @@
         {
           "op": "effective",
           "args": [
-            0.01,
+            0.012,
             12
           ],
-          "expected": 12.682503013196976
+          "expected": 15.389462418258603
         }
       ],
       "sources": [
@@ -9577,6 +9634,9 @@
         },
         {
           "id": "original-case"
+        },
+        {
+          "id": "xirr"
         }
       ]
     },
@@ -9654,6 +9714,14 @@
     }
   ],
   "sources": [
+    {
+      "id": "xirr",
+      "title": "Microsoft XIRR function documentation",
+      "kind": "Primary method reference",
+      "url": "https://support.microsoft.com/en-us/excel/functions/xirr-function",
+      "date": "Checked 4 Oct 2026",
+      "note": "Dated cashflows use actual date differences and a 365-day year; periodic IRR assumes equal periods. The original app example is independently solved by NPV bisection."
+    },
     {
       "id": "guide",
       "title": "Indian LMS, Accounting, Cashflows and Co-Lending — Deep Research Guide",
