@@ -2,7 +2,7 @@
 
 A public, static GitHub Pages learning app for Indian loan management systems, accounting, cashflows and co-lending.
 
-**12 sequenced lessons · 120 flashcards · 159 explained MCQs · 15 worked cases.**
+**12 sequenced lessons · 120 flashcards · 160 explained MCQs · 15 worked cases.**
 
 Study concepts before assessment. Case questions test calculation, event attribution and exception diagnosis. Every MCQ explains all three options. Interactive labs compare waterfall allocations and journal entries, lender principal versus interest entitlements, and contractual EMI versus an explicitly assumed qualifying-fee EIR carrying schedule.
 
