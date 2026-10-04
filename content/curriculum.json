@@ -60,6 +60,7 @@
         "Each scheduled row has interest = opening principal × r, principal = EMI − interest, closing = opening − principal. This model assumes installments are paid as scheduled. If they bounce, contractual scheduled closing and actual unpaid funded exposure can diverge.",
         "Present value discounts future cashflows. IRR is a rate that makes net present value zero; the periodic IRR depends on cashflow spacing. Annual effective yield from monthly IRR m is (1+m)^12 − 1. Simply multiplying by twelve produces a nominal annualization.",
         "APR is a borrower cost disclosure under the applicable method and cost inclusion rules. EIR is a financial accounting yield using relevant expected contractual flows and qualifying fees or transaction costs. A generic IRR is a mathematical tool used in such calculations, not a complete regulatory APR implementation.",
+        "Positive-rate transfer cases extend this module: case 13 computes a full twelve-month EMI schedule and final rounding adjustment; case 14 discounts three annual cashflows and distinguishes periodic IRR from XIRR-style actual-date yields; case 15 uses an explicitly assumed qualifying-fee EIR policy to bridge gross principal, deferred fee and net carrying amount.",
         "Worked example: lend ₹1,00,000 now and receive ₹1,10,000 in exactly one year, with no other flows: IRR is 10%. If a ₹2,000 fee is withheld so the borrower receives ₹98,000, the same repayment implies 12.2449% one-year borrower cashflow yield. This illustrative yield is not automatically the required APR for every product."
       ]
     },
@@ -7794,15 +7795,15 @@
       "prompt": "In case 06, how much borrower debt clears?",
       "options": [
         {
-          "text": "₹9,850",
+          "text": "₹15,760",
           "explanation": "That wrongly passes merchant expense to the borrower."
         },
         {
-          "text": "₹150",
+          "text": "₹240",
           "explanation": "This is gateway expense alone."
         },
         {
-          "text": "₹10,000",
+          "text": "₹16,000",
           "explanation": "The stated contract gives gross credit; expense is separate."
         }
       ],
@@ -7846,15 +7847,15 @@
       "prompt": "In case 06, the initial settlement journal's total debits are what?",
       "options": [
         {
-          "text": "₹10,150",
+          "text": "₹16,240",
           "explanation": "That adds expense to the gross rather than net cash."
         },
         {
-          "text": "₹10,000",
-          "explanation": "₹9,850 bank plus ₹150 expense equals ₹10,000."
+          "text": "₹16,000",
+          "explanation": "₹15,760 bank plus ₹240 expense equals ₹16,000."
         },
         {
-          "text": "₹9,850",
+          "text": "₹15,760",
           "explanation": "That omits expense and would not balance clearing."
         }
       ],
@@ -7902,11 +7903,11 @@
           "explanation": "It is repeated delivery for the existing economic receipt."
         },
         {
-          "text": "₹9,850",
+          "text": "₹15,760",
           "explanation": "That would duplicate net bank settlement."
         },
         {
-          "text": "₹10,000",
+          "text": "₹16,000",
           "explanation": "That would duplicate gross borrower credit."
         }
       ],
@@ -8318,11 +8319,11 @@
       "prompt": "In case 11, illustrative borrower one-year cashflow yield rounded to 2 decimals is what?",
       "options": [
         {
-          "text": "12.24%",
-          "explanation": "110,000 / 98,000 − 1 = 12.2449%."
+          "text": "14.29%",
+          "explanation": "224,000 / 196,000 − 1 = 14.2857%."
         },
         {
-          "text": "10.00%",
+          "text": "12.00%",
           "explanation": "That ignores the withheld fee."
         },
         {
@@ -8363,7 +8364,7 @@
           "explanation": "A universal accounting claim is unsupported."
         },
         {
-          "text": "The 10% contractual quote is automatically every APR",
+          "text": "The 12% contractual quote is automatically every APR",
           "explanation": "Net borrower proceeds differ and required methodology matters."
         },
         {
@@ -8487,6 +8488,375 @@
         "receipts",
         "waterfalls",
         "closure"
+      ]
+    },
+    {
+      "id": "q-case-13-1",
+      "module": "math",
+      "case": "case-13",
+      "prompt": "In case 13, regular rounded monthly EMI is what?",
+      "options": [
+        {
+          "text": "₹10,000.00",
+          "explanation": "This is the zero-rate principal installment and omits interest."
+        },
+        {
+          "text": "₹11,200.00",
+          "explanation": "This adds first-month interest to straight-line principal rather than equated reducing installments."
+        },
+        {
+          "text": "₹10,661.85",
+          "explanation": "Apply the positive-rate EMI formula at monthly r=1%, n=12, then round to paise."
+        }
+      ],
+      "answer": 2,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-13-2",
+      "module": "math",
+      "case": "case-13",
+      "prompt": "In case 13, month 2 closing POS is what?",
+      "options": [
+        {
+          "text": "₹1,10,538.15",
+          "explanation": "That is month 1 closing before month 2 payment."
+        },
+        {
+          "text": "₹1,00,981.68",
+          "explanation": "Opening ₹1,10,538.15, interest ₹1,105.38, paid principal ₹9,556.47; closing ₹1,00,981.68."
+        },
+        {
+          "text": "₹1,00,876.30",
+          "explanation": "This wrongly repeats month 1 interest/principal mix."
+        }
+      ],
+      "answer": 1,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-13-3",
+      "module": "math",
+      "case": "case-13",
+      "prompt": "In case 13, final payment is ₹10,661.91 rather than ₹10,661.85. Why?",
+      "options": [
+        {
+          "text": "Final payment clears remaining principal and rounded interest, absorbing accumulated paise rounding",
+          "explanation": "The last principal is ₹10,556.35 and interest ₹105.56, totaling ₹10,661.91."
+        },
+        {
+          "text": "The borrower incurred a six-paise penalty",
+          "explanation": "No penalty applies in this hypothetical."
+        },
+        {
+          "text": "The annual rate changed in month 12",
+          "explanation": "The rate is fixed throughout the case."
+        }
+      ],
+      "answer": 0,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-14-1",
+      "module": "math",
+      "case": "case-14",
+      "prompt": "In case 14, total PV of three ₹40,000 year-end receipts at 10% is what, rounded to paise?",
+      "options": [
+        {
+          "text": "₹1,09,090.91",
+          "explanation": "This discounts all ₹1,20,000 only one year and ignores later horizons."
+        },
+        {
+          "text": "₹1,20,000.00",
+          "explanation": "This does not discount future cash."
+        },
+        {
+          "text": "₹99,474.08",
+          "explanation": "Discount each payment separately for years 1, 2 and 3 and sum."
+        }
+      ],
+      "answer": 2,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-14-2",
+      "module": "math",
+      "case": "case-14",
+      "prompt": "In case 14, one payment arrives earlier on an actual date while amounts and other dates stay fixed. Which yield tool reflects that change?",
+      "options": [
+        {
+          "text": "The contractual rate label alone",
+          "explanation": "A rate label does not solve the changed cashflow timing."
+        },
+        {
+          "text": "A dated XIRR-style calculation with stated day-count convention",
+          "explanation": "The exponents must reflect actual timing instead of treating every receipt as exactly one equal period apart."
+        },
+        {
+          "text": "An unchanged periodic IRR over undated equal-period entries",
+          "explanation": "That model cannot observe the changed actual date."
+        }
+      ],
+      "answer": 1,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-14-3",
+      "module": "math",
+      "case": "case-14",
+      "prompt": "In case 14's separate monthly 1% example, effective annual yield is what, rounded to 2 decimals?",
+      "options": [
+        {
+          "text": "12.68%",
+          "explanation": "(1.01)^12 − 1 = 12.6825%."
+        },
+        {
+          "text": "12.00%",
+          "explanation": "This is nominal annualization, not effective compounded yield."
+        },
+        {
+          "text": "1.00%",
+          "explanation": "This is monthly yield before annualization."
+        }
+      ],
+      "answer": 0,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-15-1",
+      "module": "math",
+      "case": "case-15",
+      "prompt": "In case 15 under the explicit qualifying-fee policy, initial carrying amount is what?",
+      "options": [
+        {
+          "text": "₹1,20,000",
+          "explanation": "That is gross contractual principal before the contra-asset fee adjustment."
+        },
+        {
+          "text": "₹1,22,400",
+          "explanation": "That adds rather than deducts the deferred fee."
+        },
+        {
+          "text": "₹1,17,600",
+          "explanation": "Gross ₹1,20,000 less deferred qualifying fee ₹2,400 equals net carrying ₹1,17,600."
+        }
+      ],
+      "answer": 2,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-15-2",
+      "module": "math",
+      "case": "case-15",
+      "prompt": "In case 15, month 1 EIR income and fee accretion are what?",
+      "options": [
+        {
+          "text": "₹10,661.85 income",
+          "explanation": "The installment includes principal repayment, so it is not all income."
+        },
+        {
+          "text": "₹1,553.74 income, including ₹353.74 fee accretion",
+          "explanation": "Solved EIR income ₹1,553.74 less nominal ₹1,200 = ₹353.74 qualifying fee accretion."
+        },
+        {
+          "text": "₹1,200 income and all ₹2,400 fee recognized immediately",
+          "explanation": "That contradicts the expressly stated deferred EIR policy."
+        }
+      ],
+      "answer": 1,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "q-case-15-3",
+      "module": "math",
+      "case": "case-15",
+      "prompt": "In case 15, gross principal close ₹1,10,538.15 less deferred fee ₹2,046.26 equals what?",
+      "options": [
+        {
+          "text": "₹1,08,491.89 net carrying amount",
+          "explanation": "110,538.15 − 2,046.26 = 108,491.89, matching EIR carrying schedule."
+        },
+        {
+          "text": "₹1,12,584.41",
+          "explanation": "That adds the contra-asset instead of deducting it."
+        },
+        {
+          "text": "₹9,461.85",
+          "explanation": "That is principal repaid, not the remaining carrying amount."
+        }
+      ],
+      "answer": 0,
+      "difficulty": "Advanced",
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ],
+      "prerequisites": [
+        "foundations",
+        "boundaries"
       ]
     }
   ],
@@ -8776,11 +9146,11 @@
       "id": "case-06",
       "title": "Gross gateway credit and net bank settlement",
       "module": "reliability",
-      "scenario": "Gateway transaction gross ₹10,000. Contract makes the ₹150 gateway cost a merchant expense; borrower must receive gross credit. Net settlement ₹9,850 is bank-confirmed. Due interest ₹2,000 and principal ₹8,000 clear. A duplicate webhook with same economic ID arrives afterward.",
+      "scenario": "Gateway transaction gross ₹16,000. Contract makes the ₹240 gateway cost a merchant expense; borrower must receive gross credit. Net settlement ₹15,760 is bank-confirmed. Due interest ₹3,000 and principal ₹13,000 clear. A duplicate webhook with same economic ID arrives afterward.",
       "steps": [
-        "Reconcile gross to net: ₹9,850 bank + ₹150 expense = ₹10,000 gross clearing.",
-        "Simplified entry: Dr bank ₹9,850; Dr gateway expense ₹150; Cr payment clearing ₹10,000.",
-        "Allocate: Dr clearing ₹10,000; Cr interest receivable ₹2,000; Cr principal ₹8,000. Do not reduce borrower credit by the merchant expense.",
+        "Reconcile gross to net: ₹15,760 bank + ₹240 expense = ₹16,000 gross clearing.",
+        "Simplified entry: Dr bank ₹15,760; Dr gateway expense ₹240; Cr payment clearing ₹16,000.",
+        "Allocate: Dr clearing ₹16,000; Cr interest receivable ₹3,000; Cr principal ₹13,000. Do not reduce borrower credit by the merchant expense.",
         "The duplicate delivery is deduplicated using durable transaction identity. No additional bank debit, borrower credit or fee expense is created."
       ],
       "questions": [
@@ -8792,18 +9162,18 @@
         {
           "op": "sum",
           "args": [
-            9850,
-            150
+            15760,
+            240
           ],
-          "expected": 10000
+          "expected": 16000
         },
         {
           "op": "sum",
           "args": [
-            2000,
-            8000
+            3000,
+            13000
           ],
-          "expected": 10000
+          "expected": 16000
         }
       ],
       "sources": [
@@ -9012,11 +9382,11 @@
       "id": "case-11",
       "title": "Fee-adjusted cashflow yield",
       "module": "math",
-      "scenario": "One-year bullet hypothetical: contractual principal ₹1,00,000, upfront fee ₹2,000 withheld, no taxes or other cashflows. Borrower receives ₹98,000 today and pays ₹1,10,000 exactly one year later. Lender accounting EIR eligibility of the fee and current regulatory APR treatment are not determined here.",
+      "scenario": "One-year bullet hypothetical: contractual principal ₹2,00,000, upfront fee ₹4,000 withheld, no taxes or other cashflows. Borrower receives ₹1,96,000 today and pays ₹2,24,000 exactly one year later. Lender accounting EIR eligibility of the fee and current regulatory APR treatment are not determined here.",
       "steps": [
-        "Borrower dated cashflows: +₹98,000 today, −₹1,10,000 at one year. One-period rate solves 98,000 × (1+r) = 1,10,000.",
-        "r = 110,000 / 98,000 − 1 = 0.1224489796, or 12.2449%; display to two decimals is 12.24%.",
-        "Using gross contractual principal instead of net proceeds produces 10%, missing the cost effect of the fee.",
+        "Borrower dated cashflows: +₹1,96,000 today, −₹2,24,000 at one year. One-period rate solves 1,96,000 × (1+r) = 2,24,000.",
+        "r = 224,000 / 196,000 − 1 = 0.1428571429, or 14.2857%; display to two decimals is 14.29%.",
+        "Using gross contractual principal instead of net proceeds produces 12%, missing the cost effect of the fee.",
         "This is an illustrative cashflow yield. A statutory APR needs the applicable prescribed method and inclusions; accounting EIR needs the applicable fee/transaction-cost treatment."
       ],
       "questions": [
@@ -9027,10 +9397,10 @@
         {
           "op": "yield",
           "args": [
-            98000,
-            110000
+            196000,
+            224000
           ],
-          "expected": 12.244897959183675
+          "expected": 14.285714285714285
         }
       ],
       "sources": [
@@ -9092,6 +9462,189 @@
             35,
             40,
             41
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ]
+    },
+    {
+      "id": "case-13",
+      "title": "A complete positive-rate EMI schedule",
+      "module": "math",
+      "scenario": "Illustrative fixed monthly loan: principal ₹1,20,000, nominal annual 12% divided by twelve, twelve monthly installments paid on time. Compute EMI at full precision, round payment and each monthly interest to nearest paise (half-up for these non-tie inputs). Final payment equals remaining principal plus final rounded interest, rather than force a residual write-off. No fees, tax, arrears or impairment.",
+      "steps": [
+        "Monthly r=0.01. EMI=120000 × 0.01 / (1 − 1.01^−12) = ₹10,661.854641; regular rounded payment ₹10,661.85.",
+        "Month 1 interest ₹1,200.00; principal ₹9,461.85; closing ₹1,10,538.15. Month 2 interest ₹1,105.38; principal ₹9,556.47; closing ₹1,00,981.68.",
+        "Month 11 closes at ₹10,556.35. Month 12 interest is ₹105.56; final payment ₹10,661.91 clears principal exactly. The six-paise final adjustment reflects the stated periodic rounding.",
+        "Total actual schedule cash is 11 × 10,661.85 + 10,661.91 = ₹1,27,942.26. Principal repaid totals ₹1,20,000; interest totals ₹7,942.26. The schedule lab can reproduce all twelve rows."
+      ],
+      "questions": [
+        "q-case-13-1",
+        "q-case-13-2",
+        "q-case-13-3"
+      ],
+      "checks": [
+        {
+          "op": "emi",
+          "args": [
+            120000,
+            12,
+            12
+          ],
+          "expected": 10661.854641401007
+        },
+        {
+          "op": "sum",
+          "args": [
+            110538.15,
+            1105.38,
+            -10661.85
+          ],
+          "expected": 100981.68
+        },
+        {
+          "op": "sum",
+          "args": [
+            10556.35,
+            105.56
+          ],
+          "expected": 10661.91
+        }
+      ],
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ]
+    },
+    {
+      "id": "case-14",
+      "title": "Multi-period PV, periodic IRR and dates",
+      "module": "math",
+      "scenario": "Illustrative annual cashflows: lender pays ₹99,474.08 at year 0 and receives ₹40,000 at each year-end 1, 2 and 3; no other flows. PV discount is 10% annually. Separately consider the same amounts arriving on irregular actual dates; a dated yield must state its day-count convention. A monthly IRR of 1% in a separate example annualizes effectively with twelve compounding periods.",
+      "steps": [
+        "PV = 40000/1.1 + 40000/1.1² + 40000/1.1³ = ₹99,474.079639, rounded ₹99,474.08. Each payment is discounted for its own horizon.",
+        "NPV at 10% = −99,474.08 + 99,474.079639 ≈ −₹0.000361. With paise initial cash, solved periodic annual IRR rounds to 10.00%. The small residual is stated rounding, not a fee.",
+        "Periodic IRR assumes equal periods. XIRR-style dated yield uses actual date intervals and an explicit year basis, e.g. exponents days/365. An earlier receipt generally raises lender yield holding other cashflows fixed; an undated periodic IRR ignores that timing change.",
+        "A monthly 1% IRR gives nominal annualization 12%, but effective annual yield (1.01)^12 − 1 = 12.6825%, displayed 12.68%. Do not call a periodic monthly root an annual rate without conversion."
+      ],
+      "questions": [
+        "q-case-14-1",
+        "q-case-14-2",
+        "q-case-14-3"
+      ],
+      "checks": [
+        {
+          "op": "pv",
+          "args": [
+            40000,
+            0.1,
+            3
+          ],
+          "expected": 99474.0796393689
+        },
+        {
+          "op": "effective",
+          "args": [
+            0.01,
+            12
+          ],
+          "expected": 12.682503013196976
+        }
+      ],
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
+          ]
+        },
+        {
+          "id": "original-case"
+        }
+      ]
+    },
+    {
+      "id": "case-15",
+      "title": "Qualifying fee and EIR carrying value",
+      "module": "math",
+      "scenario": "Illustrative performing financial asset policy, not a universal accounting requirement: ₹1,20,000 contractual principal, ₹2,400 qualifying origination fee withheld and deferred in a contra-asset adjustment; net bank disbursement and initial carrying amount ₹1,17,600. Expected contractual cash is case 13: eleven ₹10,661.85 receipts and final ₹10,661.91, all on equally spaced monthly periods. No impairment, transaction costs, modification, GST or credit loss. Use solved monthly EIR at full precision; round monthly income to paise and let final income absorb rounding.",
+      "steps": [
+        "Solve 117600 = sum(payment_t / (1+m)^t), t=1..12. Monthly EIR m = 1.3212102212%; effective annual (1+m)^12−1 = 17.0589%. The qualifying fee lifts accounting yield above nominal 1% monthly under this expressly assumed policy.",
+        "Initial illustrative journal: Dr gross contractual principal ₹1,20,000; Cr bank ₹1,17,600; Cr deferred fee contra-asset ₹2,400. Net carrying amount is ₹1,17,600. The fee is not all immediate income in this assumed EIR policy.",
+        "Month 1 EIR income = 117600 × m = ₹1,553.74; carrying close = 117600 + 1553.74 − 10661.85 = ₹1,08,491.89. Gross principal close = ₹1,10,538.15; unamortized fee = ₹2,046.26; gross less fee equals carrying.",
+        "Journal bridge month 1: normal nominal-interest accrual Dr interest receivable / Cr income ₹1,200; fee accretion Dr deferred fee contra-asset / Cr income ₹353.74; receipt Dr bank ₹10,661.85 / Cr interest receivable ₹1,200 / Cr gross principal ₹9,461.85. EIR income = 1,200 + 353.74.",
+        "Carrying schedule (month: opening / EIR income / cash / closing), all ₹: 1: 117600 / 1553.74 / 10661.85 / 108491.89; 2: 108491.89 / 1433.41 / 10661.85 / 99263.45; 3: 99263.45 / 1311.48 / 10661.85 / 89913.08; 4: 89913.08 / 1187.94 / 10661.85 / 80439.17; 5: 80439.17 / 1062.77 / 10661.85 / 70840.09; 6: 70840.09 / 935.95 / 10661.85 / 61114.19.",
+        "Continuing months: 7: 61114.19 / 807.45 / 10661.85 / 51259.79; 8: 51259.79 / 677.25 / 10661.85 / 41275.19; 9: 41275.19 / 545.33 / 10661.85 / 31158.67; 10: 31158.67 / 411.67 / 10661.85 / 20908.49; 11: 20908.49 / 276.25 / 10661.85 / 10522.89; 12: 10522.89 / final adjusted 139.02 / 10661.91 / 0. Total EIR income ₹10,342.26 = nominal interest ₹7,942.26 + qualifying fee ₹2,400.",
+        "Borrower cost APR and lender EIR can coincide in a simple example, but their prescribed purposes/inclusions need separate validation. No current statutory APR certification is implied. In the cashflow lab, inspect the actual twelve-row EIR table and compare gross principal, deferred fee and carrying amount."
+      ],
+      "questions": [
+        "q-case-15-1",
+        "q-case-15-2",
+        "q-case-15-3"
+      ],
+      "checks": [
+        {
+          "op": "subtract",
+          "args": [
+            120000,
+            2400
+          ],
+          "expected": 117600
+        },
+        {
+          "op": "sum",
+          "args": [
+            117600,
+            1553.74,
+            -10661.85
+          ],
+          "expected": 108491.89
+        },
+        {
+          "op": "subtract",
+          "args": [
+            110538.15,
+            2046.26
+          ],
+          "expected": 108491.89
+        },
+        {
+          "op": "eir",
+          "args": [
+            117600,
+            10661.85,
+            10661.91,
+            12
+          ],
+          "expected": 0.013212102211607513
+        }
+      ],
+      "sources": [
+        {
+          "id": "guide",
+          "pages": [
+            4,
+            8,
+            10,
+            30,
+            33
           ]
         },
         {
