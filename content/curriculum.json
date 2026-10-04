@@ -8740,7 +8740,7 @@
       "id": "q-case-14-4",
       "module": "math",
       "case": "case-14",
-      "prompt": "In case 14 actual-date transfer cashflows (₹1,00,000 out on 1 Jan 2026; ₹40,000 in on 1 Apr, 1 Nov and 1 Mar 2027), annual 365-day dated yield is what rounded to 2 decimals?",
+      "prompt": "In case 14 actual-date transfer cashflows (₹1,00,000 out on 1 Jan 2026; ₹40,000 in on 1 Apr 2026, 1 Nov 2026 and 1 Mar 2027), annual 365-day dated yield is what rounded to 2 decimals?",
       "options": [
         {
           "text": "20.00%",
