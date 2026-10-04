@@ -1,6 +1,7 @@
 import {money,round,schedule,allocate,split,clockRemaining,pauseClock,resumeClock,classifyAttempt,eirSchedule,observeClock} from './engine.mjs';
 import {KEY,fresh,read,save,validate,recoverReset} from './store.mjs';
 const main=document.querySelector('main'),notice=document.querySelector('#notice');
+document.querySelector('.skip').addEventListener('click',event=>{event.preventDefault();main.focus();});
 let bank;try{const response=await fetch(new URL('../content/curriculum.json',import.meta.url));if(!response.ok)throw Error('Content unavailable');bank=await response.json();}catch{main.innerHTML='<h1>Learning content could not load</h1><p>Reconnect and reload. Offline reading needs one complete online visit first.</p>';throw Error('Curriculum loading failed');}
 let storage;try{storage=window.localStorage;}catch{storage={getItem(){throw Error('Storage unavailable');},setItem(){throw Error('Storage unavailable');}};}
 const loaded=read(storage,bank);let state=loaded.state,blocked=loaded.blocked,raw=loaded.raw,reason=loaded.reason||'',temporary=false,saveFailed=false,resetPending=false;
